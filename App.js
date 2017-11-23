@@ -13,24 +13,24 @@ import NewDeck from './src/components/NewDeck'
 import NewCard from './src/components/NewCard'
 import Quiz from './src/components/Quiz'
 import { blue, white } from './src/utils/colors'
-//import { setLocalNotification } from '.src/utils/notifications'
-
-// TODO: remove debug alerts
-// TODO; comment in local notifications
+import { setLocalNotification } from '.src/utils/notifications'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: `${white}`
-  },
+  }
 })
 
+// the statusbar component ensuring that the app is fully displayed
 const UdaciStatusBar = ({ backgroundColor, ...props }) => (
   <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
     <StatusBar translucent backgroundColor={backgroundColor} {...props} />
   </View>
 )
 
+// content of the "Home" screen, showing the deck list on one tab and a screen to add decks on
+//  a second tab
 const Tabs = TabNavigator(
   {
     DeckList: {
@@ -74,6 +74,7 @@ const Tabs = TabNavigator(
   }
 )
 
+// the main navigator incorporating the "Home" screen and all the other screens
 const MainNavigator = StackNavigator({
   Home: {
     screen: Tabs,
@@ -118,9 +119,10 @@ const MainNavigator = StackNavigator({
 
 const store = createStore(reducer, compose(applyMiddleware(thunkMiddleware)))
 
+// the main component
 export default class App extends React.Component {
   componentDidMount() {
-    //setLocalNotification()
+    setLocalNotification()
   }
 
   render() {
