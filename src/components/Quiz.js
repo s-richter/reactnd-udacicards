@@ -5,7 +5,7 @@ import TextButton from './TextButton'
 import Progress from './Progress'
 import { white, green, red } from '../utils/colors'
 import QuizFinished from './QuizFinished'
-import { clearLocalNotification } from '../utils/notifications'
+import { clearLocalNotification, setLocalNotification } from '../utils/notifications'
 
 const styles = StyleSheet.create({
     container: {
@@ -82,6 +82,7 @@ class Quiz extends Component {
         const deckQuestions = deck.questions
         if (currentCard === deckQuestions.length - 1) {
             clearLocalNotification()
+                .then(setLocalNotification())
             this.setState(prev => ({
                 currentCard: prev.currentCard + 1,
                 quizIsFinished: true,
@@ -102,6 +103,7 @@ class Quiz extends Component {
         const deckQuestions = deck.questions
         if (currentCard === deckQuestions.length - 1) {
             clearLocalNotification()
+                .then(setLocalNotification())
             this.setState(prev => ({
                 currentCard: prev.currentCard + 1,
                 quizIsFinished: true,

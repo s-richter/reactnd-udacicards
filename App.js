@@ -15,6 +15,9 @@ import Quiz from './src/components/Quiz'
 import { blue, white } from './src/utils/colors'
 //import { setLocalNotification } from '.src/utils/notifications'
 
+// TODO: deck list seed
+// refactor out async storage calls into own file
+// TODO: remove debug alerts
 
 const styles = StyleSheet.create({
   container: {

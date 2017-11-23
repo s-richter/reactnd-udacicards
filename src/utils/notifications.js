@@ -3,16 +3,15 @@ import { Notifications, Permissions } from 'expo'
 
 const NOTIFICATION_KEY = 'UdaciCards:notifications'
 
-export function getDailyReminder() {
-    return {
-        today: "ðŸ‘‹ Don't forget to study today!"
-    }
-}
-
 export function clearLocalNotification() {
-    return AsyncStorage
-        .removeItem(NOTIFICATION_KEY)
-        .then(Notifications.cancelAllScheduledNotificationsAsync)
+    try {
+        return AsyncStorage
+            .removeItem(NOTIFICATION_KEY)
+            .then(Notifications.cancelAllScheduledNotificationsAsync)
+    } catch (error) {
+        console.log(error);
+    }
+
 }
 
 function createNotification() {
@@ -32,31 +31,34 @@ function createNotification() {
 }
 
 export function setLocalNotification() {
-    AsyncStorage.getItem(NOTIFICATION_KEY)
-        .then(JSON.parse)
-        .then((data) => {
-            if (data === null) {
-                Permissions.askAsync(Permissions.NOTIFICATIONS)
-                    .then(({ status }) => {
-                        if (status === 'granted') {
-                            Notifications.cancelAllScheduledNotificationsAsync()
+    try {
+        AsyncStorage.getItem(NOTIFICATION_KEY)
+            .then(JSON.parse)
+            .then((data) => {
+                if (data === null) {
+                    Permissions.askAsync(Permissions.NOTIFICATIONS)
+                        .then(async ({ status }) => {
+                            if (status === 'granted') {
+                                Notifications.cancelAllScheduledNotificationsAsync()
 
-                            let tomorrow = new Date()
-                            tomorrow.setDate(tomorrow.getDate() + 1)
-                            tomorrow.setHours(17)
-                            tomorrow.setMinutes(27)
+                                let tomorrow = new Date()
+                                tomorrow.setDate(tomorrow.getDate() + 1)
+                                tomorrow.setHours(20)
+                                tomorrow.setMinutes(0)
 
-                            Notifications.scheduleLocalNotificationAsync(
-                                createNotification(),
-                                {
-                                    time: tomorrow,
-                                    repeat: 'day',
-                                }
-                            )
-
-                            AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
-                        }
-                    })
-            }
-        })
+                                Notifications.scheduleLocalNotificationAsync(
+                                    createNotification(),
+                                    {
+                                        time: tomorrow,
+                                        repeat: 'day',
+                                    }
+                                )
+                                AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
+                            }
+                        })
+                }
+            })
+    } catch (error) {
+        console.log(error);
+    }
 }
