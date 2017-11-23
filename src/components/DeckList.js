@@ -49,6 +49,10 @@ class DeckList extends Component {
         this.props.getDecks()
     }
 
+    shouldComponentUpdate(next) {
+        return next.isFetching === false
+    }
+
     onPress = (deck) => {
         this.props.navigation.navigate('IndividualDeck', { deckTitle: deck.title })
     }

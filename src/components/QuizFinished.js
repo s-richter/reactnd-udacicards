@@ -24,14 +24,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
     },
-    buttonBase: {
-        marginTop: 25,
-        padding: 15,
-        fontSize: 20,
-        width: 200,
-        color: white,
-        borderRadius: 6
-    },
     restartButton: {
         backgroundColor: green,
     },
@@ -55,12 +47,12 @@ export default class QuizFinished extends Component {
                 </View>
                 <View style={styles.buttonContainer}>
                     <TextButton 
-                        style={[styles.buttonBase, styles.restartButton]} 
+                        style={styles.restartButton} 
                         onPress={() => restartQuiz()}>
                         Restart quiz
                     </TextButton>
                     <TextButton
-                        style={[styles.buttonBase, styles.backButton]}
+                        style={styles.backButton}
                         onPress={() => goBack()}
                     >
                         Back

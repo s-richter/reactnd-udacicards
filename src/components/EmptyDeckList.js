@@ -14,12 +14,8 @@ const styles = StyleSheet.create({
     },
     button: {
         marginTop: 25,
-        padding: 15,
         fontSize: 20,
-        width: 200,
-        backgroundColor: blue,
-        color: white,
-        borderRadius: 6
+        backgroundColor: blue
     }
 })
 

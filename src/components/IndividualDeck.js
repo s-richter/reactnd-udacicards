@@ -33,21 +33,11 @@ const styles = StyleSheet.create({
     deckCardCount: {
         fontSize: 16,
     },
-    buttonBase: {
-        marginTop: 25,
-        padding: 15,
-        fontSize: 20,
-        width: 200,
-        color: white,
-        borderRadius: 6
-    },
     buttonAdd: {
-        backgroundColor: blue,
-        color: white,
+        backgroundColor: blue
     },
     buttonQuiz: {
-        backgroundColor: black,
-        color: white,
+        backgroundColor: black
     }
 })
 
@@ -73,7 +63,7 @@ class IndividualDeck extends Component {
                 </View>
                 <View style={styles.buttonContainer}>
                     <TextButton
-                        style={[styles.buttonBase, styles.buttonAdd]}
+                        style={styles.buttonAdd}
                         onPress={() => navigate('NewCard', { deckTitle })}
                     >
                         Add card
@@ -81,7 +71,7 @@ class IndividualDeck extends Component {
                     {
                         deck.questions.length > 0 &&
                         <TextButton
-                            style={[styles.buttonBase, styles.buttonQuiz]}
+                            style={styles.buttonQuiz}
                             onPress={() => navigate('Quiz', { deckTitle })}
                         >
                             Start Quiz

@@ -24,20 +24,11 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     toggleCardSideButton: {
-        marginTop: 25,
         fontSize: 24,
     },
     buttonContainer: {
         flex: 1,
         alignItems: 'center',
-    },
-    buttonBase: {
-        marginTop: 25,
-        padding: 15,
-        fontSize: 20,
-        width: 200,
-        color: white,
-        borderRadius: 6
     },
     correctButton: {
         backgroundColor: green,
@@ -153,13 +144,13 @@ class Quiz extends Component {
                     </View>
                     <View style={styles.buttonContainer}>
                         <TextButton
-                            style={[styles.buttonBase, styles.correctButton]}
+                            style={styles.correctButton}
                             onPress={() => this.markAsCorrect()}
                         >
                             Correct
                         </TextButton>
                         <TextButton
-                            style={[styles.buttonBase, styles.incorrectButton]}
+                            style={styles.incorrectButton}
                             onPress={() => this.markAsIncorrect()}
                         >
                             Incorrect
