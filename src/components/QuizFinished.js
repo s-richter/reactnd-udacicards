@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     }
 })
 
+// shows the user the score he or she has received in the quiz
 export default class QuizFinished extends Component {
     render() {
         const { correct, incorrect, restartQuiz, goBack } = this.props

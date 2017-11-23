@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     }
 })
 
+// shown when no decks has yet been created
 function EmptyDeckList(props) {
     return (
         <View style={styles.container}>

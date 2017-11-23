@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     }
 })
 
+// component that allows the user to add a new card to the current deck
 class NewCard extends Component {
     static navigationOptions = { title: "Add a new question" }
 
@@ -76,6 +77,8 @@ class NewCard extends Component {
         const { addCardToDeck, navigation, deck } = this.props
         const { deckTitle } = navigation.state.params
         const { question, answer } = this.state
+
+        // validation
         if (!question) {
             Alert.alert("Warning", "The question text may not be empty!");
             return;
@@ -89,8 +92,10 @@ class NewCard extends Component {
             Alert.alert("Warning", "The answer text may not be empty!");
             return;
         }
+
+        // save and return
         addCardToDeck(deckTitle, this.state)
-        navigation.goBack()
+        navigation.goBack() // moves back to the current deck
     }
 
     onCancel = async () => {
@@ -98,7 +103,7 @@ class NewCard extends Component {
             question: '',
             answer: ''
         })
-        this.props.navigation.goBack()
+        this.props.navigation.goBack()  // moves back to the current deck
     }
 
     render() {

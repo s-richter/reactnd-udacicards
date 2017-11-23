@@ -17,10 +17,11 @@ const styles = StyleSheet.create({
     },
 })
 
+// component that describes a single deck in the DeckList component
 export default class DeckListItem extends Component {
     render() {
         const { item, onPress } = this.props
-        const cardCountText = getCardCount(item)
+        const cardCountText = getCardCount(item) // gets pluralized string with the number of cards
 
         return (
             <TouchableHighlight

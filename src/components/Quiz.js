@@ -47,11 +47,12 @@ const styles = StyleSheet.create({
     }
 })
 
+// component that enables the user to answer the questions in a deck
 class Quiz extends Component {
     static navigationOptions = { title: 'Quiz' }
 
     state = {
-        currentCard: 0,
+        currentCardIndex: 0,
         correctSoFar: 0,
         incorrectSoFar: 0,
         quizIsFinished: false,
@@ -60,7 +61,7 @@ class Quiz extends Component {
 
     resetQuiz = () => {
         this.setState({
-            currentCard: 0,
+            currentCardIndex: 0,
             correctSoFar: 0,
             incorrectSoFar: 0,
             quizIsFinished: false,
@@ -77,20 +78,20 @@ class Quiz extends Component {
     }
 
     markAsCorrect = () => {
-        const { currentCard, correctSoFar, quizIsFinished } = this.state
+        const { currentCardIndex, correctSoFar, quizIsFinished } = this.state
         const { deck } = this.props
         const deckQuestions = deck.questions
-        if (currentCard === deckQuestions.length - 1) {
+        if (currentCardIndex === deckQuestions.length - 1) {
             clearLocalNotification()
                 .then(setLocalNotification())
             this.setState(prev => ({
-                currentCard: prev.currentCard + 1,
+                currentCardIndex: prev.currentCardIndex + 1,
                 quizIsFinished: true,
                 correctSoFar: prev.correctSoFar + 1
             }))
         } else {
             this.setState(prev => ({
-                currentCard: prev.currentCard + 1,
+                currentCardIndex: prev.currentCardIndex + 1,
                 correctSoFar: prev.correctSoFar + 1,
                 showAnswer: false
             }))
@@ -98,20 +99,20 @@ class Quiz extends Component {
     }
 
     markAsIncorrect = () => {
-        const { currentCard, incorrectSoFar, quizIsFinished } = this.state
+        const { currentCardIndex, incorrectSoFar, quizIsFinished } = this.state
         const { deck } = this.props
         const deckQuestions = deck.questions
-        if (currentCard === deckQuestions.length - 1) {
+        if (currentCardIndex === deckQuestions.length - 1) {
             clearLocalNotification()
                 .then(setLocalNotification())
             this.setState(prev => ({
-                currentCard: prev.currentCard + 1,
+                currentCardIndex: prev.currentCardIndex + 1,
                 quizIsFinished: true,
                 incorrectSoFar: prev.incorrectSoFar + 1
             }))
         } else {
             this.setState(prev => ({
-                currentCard: prev.currentCard + 1,
+                currentCardIndex: prev.currentCardIndex + 1,
                 incorrectSoFar: prev.incorrectSoFar + 1,
                 showAnswer: false
             }))
@@ -119,7 +120,7 @@ class Quiz extends Component {
     }
 
     render() {
-        const { currentCard, correctSoFar, incorrectSoFar, quizIsFinished } = this.state
+        const { currentCardIndex, correctSoFar, incorrectSoFar, quizIsFinished } = this.state
         if (quizIsFinished) {
             return (
                 <QuizFinished
@@ -131,11 +132,11 @@ class Quiz extends Component {
             )
         } else {
             const { deck } = this.props
-            const { question, answer } = deck.questions[currentCard]
+            const { question, answer } = deck.questions[currentCardIndex]
             return (
                 <View style={styles.container}>
                     <Progress
-                        answered={currentCard}
+                        answered={currentCardIndex}
                         total={deck.questions.length} />
                     <View style={styles.cardContainer}>
                         <Text style={styles.cardText}>

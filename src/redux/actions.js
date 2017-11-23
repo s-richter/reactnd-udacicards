@@ -20,6 +20,7 @@ function errorReceiveDecks() {
     }
 }
 
+// gets the decks stored in local storage
 export function getDecks() {
     return function (dispatch) {
         dispatch(requestDecks())
@@ -57,6 +58,7 @@ function errorSaveDeckTitle(title) {
     }
 }
 
+// saves the title of a new deck in local storage
 export function saveDeckTitle(title) {
     return (dispatch) => {
         dispatch(requestSaveDeckTitle(title))
@@ -105,6 +107,7 @@ function errorAddCardToDeck(title, card) {
     }
 }
 
+// adds a new question to the deck specified by its title
 export function addCardToDeck(title, card) {
     return (dispatch) => {
         dispatch(requestAddCardToDeck(title, card))

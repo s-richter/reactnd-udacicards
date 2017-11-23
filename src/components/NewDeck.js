@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     }
 })
 
+// component that allows the user to add a new deck
 class NewDeck extends Component {
     state = {
         title: ''
@@ -48,14 +49,18 @@ class NewDeck extends Component {
 
     onSave = () => {
         const { title } = this.state
+
+        // validation
         if (!title) {
-            Alert.alert("Warrning", "The deck title may not be empty!");
+            Alert.alert("Warning", "The deck title may not be empty!");
             return;
         }
         if (this.props.decks[title]) {
             Alert.alert("Warning", "There is already a deck with that name!");
             return;
         }
+
+        // save, reset and return
         this.props.saveDeckTitle(title)
         this.setState({ title: '' })
         this.props.navigation.navigate('DeckList')

@@ -51,9 +51,10 @@ const styles = StyleSheet.create({
     }
 })
 
+// a single deck enabling the user to add cards to it or start a quiz
 class IndividualDeck extends Component {
     static navigationOptions = ({ navigation }) =>
-        ({ title: navigation.state.params.deckTitle || 'Deck' })
+        ({ title: navigation.state.params.deckTitle })
 
     render() {
         const { deck, deckTitle, navigation, cardCountText, errorAddCard } = this.props
@@ -95,7 +96,7 @@ class IndividualDeck extends Component {
 function mapStateToProps({ decks, errorAddCard }, { navigation }) {
     const { deckTitle } = navigation.state.params
     const deck = decks[deckTitle]
-    const cardCountText = getCardCount(deck)
+    const cardCountText = getCardCount(deck)    // gets pluralized string with the number of cards
     return {
         deck,
         deckTitle,

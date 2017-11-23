@@ -37,28 +37,23 @@ const styles = StyleSheet.create({
     }
 })
 
+// component that shows all the available decks
 class DeckList extends Component {
     constructor() {
         super()
-        DeckList.dataWasFetched = false
+        DeckList.dataWasFetched = false // needed to show empty deck list if no decks have yet
+                                        //  been created
     }
 
     componentDidMount() {
         this.props.getDecks()
     }
 
-    shouldComponentUpdate() {
-        return this.props.isFetching === false
-    }
-
-    keyExtractor = (item, index) => {
-        return item.title + index
-    }
-
     onPress = (deck) => {
         this.props.navigation.navigate('IndividualDeck', { deckTitle: deck.title })
     }
 
+    // used for the FlatList component below
     renderDeckItem = ({ item }) => {
         return (
             <DeckListItem
@@ -67,6 +62,12 @@ class DeckList extends Component {
         )
     }
 
+    // used for the FlatList component below
+    keyExtractor = (item, index) => {
+        return item.title + index
+    }
+
+    // used for the FlatList component below
     renderSeparator = () => (<View style={styles.separator} />)
 
     render() {
@@ -100,7 +101,6 @@ class DeckList extends Component {
 }
 
 function mapStateToProps({ decks, errorLoadDecks, errorAddDeck }) {
-    //Alert.alert("Hinweis", Object.keys(decks).toString())
     if (errorLoadDecks === true) {
         return {
             isFetching: false,
@@ -110,7 +110,7 @@ function mapStateToProps({ decks, errorLoadDecks, errorAddDeck }) {
     }
 
     if (!DeckList.dataWasFetched) {
-        DeckList.dataWasFetched = true
+        DeckList.dataWasFetched = true  // decks are then fetched in componentDidMount()
         return {
             isFetching: true,
             decks,
