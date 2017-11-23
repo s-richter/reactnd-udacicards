@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
 import TextButton from './TextButton'
 import { blue, white } from '../utils/colors'
 
@@ -25,12 +25,12 @@ function EmptyDeckList(props) {
         <View style={styles.container}>
             <Text style={styles.message}>
                 There are no decks available right now. You can create one below.
-                </Text>
+            </Text>
             <TextButton
                 style={styles.button}
                 onPress={() => props.navigation.navigate("NewDeck")}>
                 Add Deck
-                </TextButton>
+            </TextButton>
         </View>
     )
 }

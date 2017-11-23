@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, View, Text, ScrollView } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
 import TextButton from './TextButton'
 import Progress from './Progress'
 import { blue, white, green, red } from '../utils/colors'
@@ -61,10 +61,6 @@ class Quiz extends Component {
         })
     }
 
-    goBack = () => {
-        this.props.navigation.goBack()
-    }
-
     toggleCardSide = () => {
         this.setState(state => ({ showAnswer: !state.showAnswer }))
     }
@@ -102,7 +98,7 @@ class Quiz extends Component {
                     correct={correctSoFar}
                     incorrect={incorrectSoFar}
                     restartQuiz={this.resetQuiz}
-                    goBack={this.goBack}
+                    goBack={() => this.props.navigation.goBack()}
                 />
             )
         } else {

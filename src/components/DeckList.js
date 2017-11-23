@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
-    FlatList,
     StyleSheet,
     View,
     Text,
-    StatusBar,
-    TouchableHighlight,
-    ActivityIndicator,
-    Alert
+    FlatList,
+    ActivityIndicator
 } from 'react-native'
 import { Constants } from 'expo'
 import { getDecks } from '../redux/actions'

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, TouchableHighlight } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import getCardCount from '../utils'
 
 const styles = StyleSheet.create({
@@ -24,14 +24,14 @@ export default class DeckListItem extends Component {
         const cardCountText = getCardCount(item) // gets pluralized string with the number of cards
 
         return (
-            <TouchableHighlight
+            <TouchableOpacity
                 onPress={() => onPress(item)}
             >
                 <View style={styles.deckListItem}>
                     <Text style={styles.deckTitle}>{item.title}</Text>
                     <Text style={styles.deckCardCount}>{cardCountText}</Text>
                 </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
         )
     }
 }
