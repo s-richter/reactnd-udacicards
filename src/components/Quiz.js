@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { StyleSheet, View, Text, ScrollView } from 'react-native'
 import TextButton from './TextButton'
 import Progress from './Progress'
-import { white, green, red } from '../utils/colors'
+import { blue, white, green, red } from '../utils/colors'
 import QuizFinished from './QuizFinished'
 import { clearLocalNotification, setLocalNotification } from '../utils/notifications'
 
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     },
     toggleCardSideButton: {
         fontSize: 24,
+        color: blue
     },
     buttonContainer: {
         flex: 1,
@@ -68,43 +69,26 @@ class Quiz extends Component {
         this.setState(state => ({ showAnswer: !state.showAnswer }))
     }
 
-    markAsCorrect = () => {
+    gradeAnswer = (answerIsCorrect) => {
         const { currentCardIndex, correctSoFar, quizIsFinished } = this.state
         const { deck } = this.props
         const deckQuestions = deck.questions
+        let nowCorrect = this.state.correctSoFar + (answerIsCorrect ? 1 : 0)
+        let nowIncorrect = this.state.incorrectSoFar + (answerIsCorrect ? 0 : 1)
         if (currentCardIndex === deckQuestions.length - 1) {
             clearLocalNotification()
                 .then(setLocalNotification())
             this.setState(prev => ({
                 currentCardIndex: prev.currentCardIndex + 1,
+                correctSoFar: nowCorrect,
+                incorrectSoFar: nowIncorrect,
                 quizIsFinished: true,
-                correctSoFar: prev.correctSoFar + 1
             }))
         } else {
             this.setState(prev => ({
                 currentCardIndex: prev.currentCardIndex + 1,
-                correctSoFar: prev.correctSoFar + 1,
-                showAnswer: false
-            }))
-        }
-    }
-
-    markAsIncorrect = () => {
-        const { currentCardIndex, incorrectSoFar, quizIsFinished } = this.state
-        const { deck } = this.props
-        const deckQuestions = deck.questions
-        if (currentCardIndex === deckQuestions.length - 1) {
-            clearLocalNotification()
-                .then(setLocalNotification())
-            this.setState(prev => ({
-                currentCardIndex: prev.currentCardIndex + 1,
-                quizIsFinished: true,
-                incorrectSoFar: prev.incorrectSoFar + 1
-            }))
-        } else {
-            this.setState(prev => ({
-                currentCardIndex: prev.currentCardIndex + 1,
-                incorrectSoFar: prev.incorrectSoFar + 1,
+                correctSoFar: nowCorrect,
+                incorrectSoFar: nowIncorrect,
                 showAnswer: false
             }))
         }
@@ -145,13 +129,13 @@ class Quiz extends Component {
                     <View style={styles.buttonContainer}>
                         <TextButton
                             style={styles.correctButton}
-                            onPress={() => this.markAsCorrect()}
+                            onPress={() => this.gradeAnswer(true)}
                         >
                             Correct
                         </TextButton>
                         <TextButton
                             style={styles.incorrectButton}
-                            onPress={() => this.markAsIncorrect()}
+                            onPress={() => this.gradeAnswer(false)}
                         >
                             Incorrect
                         </TextButton>
