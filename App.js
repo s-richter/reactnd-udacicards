@@ -13,7 +13,6 @@ import NewDeck from './src/components/NewDeck'
 import NewCard from './src/components/NewCard'
 import Quiz from './src/components/Quiz'
 import { blue, white } from './src/utils/colors'
-import { setLocalNotification } from '.src/utils/notifications'
 
 const styles = StyleSheet.create({
   container: {
@@ -121,10 +120,6 @@ const store = createStore(reducer, compose(applyMiddleware(thunkMiddleware)))
 
 // the main component
 export default class App extends React.Component {
-  componentDidMount() {
-    setLocalNotification()
-  }
-
   render() {
     return (
       <Provider store={store}>

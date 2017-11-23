@@ -12,6 +12,7 @@ import { getDecks } from '../redux/actions'
 import { gray, red } from '../utils/colors'
 import EmptyDeckList from './EmptyDeckList'
 import DeckListItem from './DeckListItem'
+import { setLocalNotification } from '../utils/notifications'
 
 const styles = StyleSheet.create({
     container: {
@@ -44,6 +45,7 @@ class DeckList extends Component {
 
     componentDidMount() {
         this.props.getDecks()
+        setLocalNotification()
     }
 
     shouldComponentUpdate(next) {
