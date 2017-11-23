@@ -3,7 +3,7 @@ import * as CONSTANTS from './constants'
 export const initialState = {
     decks: {},
     isFetching: false,
-    error: false
+    errorLoadDecks: false
     // decks: {
     //     React: {
     //         title: 'React',
@@ -51,13 +51,13 @@ export default reducer = (state = initialState, action) => {
                 ...state,
                 decks: action.decks,
                 isFetching: false,
-                error: false
+                errorLoadDecks: false
             }
         case CONSTANTS.GET_DECKS_ERROR:
             return {
                 ...state,
                 isFetching: false,
-                error: true
+                errorLoadDecks: true,
             }
         case CONSTANTS.SAVE_DECK_TITLE_REQUEST:
             return {
@@ -67,6 +67,8 @@ export default reducer = (state = initialState, action) => {
         case CONSTANTS.SAVE_DECK_TITLE_RESPONSE: {
             return {
                 ...state,
+                isFetching: false,
+                errorAddDeck: false,
                 decks: {
                     ...state.decks,
                     [action.title]: {
@@ -76,6 +78,15 @@ export default reducer = (state = initialState, action) => {
                 }
             }
         }
+        case CONSTANTS.SAVE_DECK_TITLE_ERROR:
+            return {
+                ...state,
+                isFetching: false,
+                errorAddDeck: true,
+                decks: {
+                    ...state.decks
+                }
+            }
         case CONSTANTS.ADD_CARD_TO_DECK_REQUEST: {
             return {
                 ...state,

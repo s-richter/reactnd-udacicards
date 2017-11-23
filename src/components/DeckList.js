@@ -7,11 +7,12 @@ import {
     Text,
     StatusBar,
     TouchableHighlight,
-    ActivityIndicator
+    ActivityIndicator,
+    Alert
 } from 'react-native'
 import { Constants } from 'expo'
 import { getDecks } from '../redux/actions'
-import { gray } from '../utils/colors'
+import { gray, red } from '../utils/colors'
 import EmptyDeckList from './EmptyDeckList'
 import DeckListItem from './DeckListItem'
 
@@ -28,9 +29,11 @@ const styles = StyleSheet.create({
     },
     error: {
         marginTop: 36,
+        marginBottom: 24,
         width: '90%',
         alignSelf: 'center',
-        fontSize: 24
+        fontSize: 24,
+        color: `${red}`
     }
 })
 
@@ -67,13 +70,20 @@ class DeckList extends Component {
     renderSeparator = () => (<View style={styles.separator} />)
 
     render() {
-        const { decks, navigation, isFetching, error } = this.props
+        const { decks, navigation, isFetching, errorLoadDecks, errorAddDeck } = this.props
         const decksArray = Object.keys(decks).map(key => decks[key])
         return (
             <View style={styles.container}>
                 {
-                    error
-                        ? <Text style={styles.error}>There as an error fetching the decks.</Text>
+                    errorAddDeck && <Text style={styles.error}>
+                        There was an error adding the deck.
+                    </Text>
+                }
+                {
+                    errorLoadDecks
+                        ? <Text style={styles.error}>
+                            There was an error fetching the decks.
+                        </Text>
                         : decksArray.length > 0
                             ? <FlatList
                                 data={decksArray}
@@ -89,12 +99,13 @@ class DeckList extends Component {
     }
 }
 
-function mapStateToProps({ decks, error }) {
-    if (error === true) {
+function mapStateToProps({ decks, errorLoadDecks, errorAddDeck }) {
+    //Alert.alert("Hinweis", Object.keys(decks).toString())
+    if (errorLoadDecks === true) {
         return {
             isFetching: false,
             decks,
-            error
+            errorLoadDecks
         }
     }
 
@@ -102,12 +113,14 @@ function mapStateToProps({ decks, error }) {
         DeckList.dataWasFetched = true
         return {
             isFetching: true,
-            decks
+            decks,
+            errorAddDeck
         }
     } else {
         return {
             isFetching: false,
-            decks
+            decks,
+            errorAddDeck
         }
     }
 }

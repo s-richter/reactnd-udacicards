@@ -29,6 +29,7 @@ export function getDecks() {
                 dispatch(receiveDecks(result))
             })
             .catch((error) => {
+                dispatch(errorReceiveDecks())
                 console.log(error)
                 return null
             })
@@ -45,6 +46,13 @@ function requestSaveDeckTitle(title) {
 function receiveSaveDeckTitle(title) {
     return {
         type: CONSTANTS.SAVE_DECK_TITLE_RESPONSE,
+        title
+    }
+}
+
+function errorSaveDeckTitle(title) {
+    return {
+        type: CONSTANTS.SAVE_DECK_TITLE_ERROR,
         title
     }
 }
@@ -66,6 +74,7 @@ export function saveDeckTitle(title) {
                 dispatch(receiveSaveDeckTitle(title))
             })
             .catch((error) => {
+                dispatch(errorSaveDeckTitle(title))
                 console.log(error)
                 return null
             })
