@@ -2,13 +2,21 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, View, Text } from 'react-native'
 import TextButton from './TextButton'
-import { blue, white, black } from '../utils/colors'
+import { blue, white, black, red } from '../utils/colors'
 import getCardCount from '../utils'
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: 10
+    },
+    error: {
+        marginTop: 36,
+        marginBottom: 24,
+        width: '90%',
+        alignSelf: 'center',
+        fontSize: 24,
+        color: `${red}`
     },
     titleContainer: {
         flex: 1,
@@ -48,11 +56,16 @@ class IndividualDeck extends Component {
         ({ title: navigation.state.params.deckTitle || 'Deck' })
 
     render() {
-        const { deck, deckTitle, navigation, cardCountText } = this.props
+        const { deck, deckTitle, navigation, cardCountText, errorAddCard } = this.props
         const { navigate } = this.props.navigation
 
         return (
             <View style={styles.container}>
+                {
+                    errorAddCard && <Text style={styles.error}>
+                        There was an error adding the card.
+                    </Text>
+                }
                 <View style={styles.titleContainer}>
                     <Text style={styles.deckTitle}>{deckTitle}</Text>
                     <Text style={styles.deckCardCount}>{cardCountText}</Text>
@@ -79,14 +92,15 @@ class IndividualDeck extends Component {
     }
 }
 
-function mapStateToProps({ decks }, { navigation }) {
+function mapStateToProps({ decks, errorAddCard }, { navigation }) {
     const { deckTitle } = navigation.state.params
     const deck = decks[deckTitle]
     const cardCountText = getCardCount(deck)
     return {
         deck,
         deckTitle,
-        cardCountText
+        cardCountText,
+        errorAddCard
     }
 }
 

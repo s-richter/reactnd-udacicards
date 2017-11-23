@@ -97,6 +97,14 @@ function receiveAddCardToDeck(title, card) {
     }
 }
 
+function errorAddCardToDeck(title, card) {
+    return {
+        type: CONSTANTS.ADD_CARD_TO_DECK_ERROR,
+        title,
+        card
+    }
+}
+
 export function addCardToDeck(title, card) {
     return (dispatch) => {
         dispatch(requestAddCardToDeck(title, card))
@@ -119,20 +127,23 @@ export function addCardToDeck(title, card) {
                         }
                     ))
                     .then(
-                        result => dispatch(receiveAddCardToDeck(title, card)),
+                        result =>
+                            dispatch(receiveAddCardToDeck(title, card)),
                         error => {
+                            dispatch(errorAddCardToDeck(title, card))
                             console.log(error)
                             return null
                         }
                     )
-                    .catch(
-                        error => {
-                            console.log(error)
-                            return null
-                        }
+                    .catch(error => {
+                        dispatch(errorAddCardToDeck(title, card))
+                        console.log(error)
+                        return null
+                    }
                     )
             })
-            .catch((error) => {
+            .catch(error => {
+                dispatch(errorAddCardToDeck(title, card))
                 console.log(error)
                 return null
             })

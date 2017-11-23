@@ -3,7 +3,9 @@ import * as CONSTANTS from './constants'
 export const initialState = {
     decks: {},
     isFetching: false,
-    errorLoadDecks: false
+    errorLoadDecks: false,
+    errorAddDeck: false,
+    errorAddCard: false
     // decks: {
     //     React: {
     //         title: 'React',
@@ -105,9 +107,17 @@ export default reducer = (state = initialState, action) => {
                             : [{ ...action.card }]
                     }
                 },
-                isFetching: false
+                isFetching: false,
+                errorAddCard: false
             }
             return result
+        }
+        case CONSTANTS.ADD_CARD_TO_DECK_ERROR: {
+            return {
+                ...state,
+                isFetching: false,
+                errorAddCard: true
+            }
         }
         default:
             return state
