@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
 
 // component that allows the user to add a new card to the current deck
 class NewCard extends Component {
-    static navigationOptions = { title: "Add a new question" }
+    static navigationOptions = { title: "Add a new card" }
 
     state = {
         question: '',
