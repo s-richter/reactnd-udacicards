@@ -2,7 +2,8 @@ import * as CONSTANTS from './constants'
 
 export const initialState = {
     decks: {},
-    isFetching: false
+    isFetching: false,
+    error: false
     // decks: {
     //     React: {
     //         title: 'React',
@@ -49,9 +50,16 @@ export default reducer = (state = initialState, action) => {
             return {
                 ...state,
                 decks: action.decks,
-                isFetching: false
+                isFetching: false,
+                error: false
             }
-        case CONSTANTS.SAVE_DECK_TITLE_REQUEST: 
+        case CONSTANTS.GET_DECKS_ERROR:
+            return {
+                ...state,
+                isFetching: false,
+                error: true
+            }
+        case CONSTANTS.SAVE_DECK_TITLE_REQUEST:
             return {
                 ...state,
                 isFetching: true
@@ -82,8 +90,8 @@ export default reducer = (state = initialState, action) => {
                     [action.title]: {
                         title: action.title,
                         questions: state.decks[action.title]
-                            ? state.decks[action.title].questions.concat({...action.card})
-                            : [{...action.card}]
+                            ? state.decks[action.title].questions.concat({ ...action.card })
+                            : [{ ...action.card }]
                     }
                 },
                 isFetching: false
@@ -92,5 +100,5 @@ export default reducer = (state = initialState, action) => {
         }
         default:
             return state
-      }
+    }
 }

@@ -14,6 +14,12 @@ function receiveDecks(decks) {
     }
 }
 
+function errorReceiveDecks() {
+    return {
+        type: CONSTANTS.GET_DECKS_ERROR
+    }
+}
+
 export function getDecks() {
     return function (dispatch) {
         dispatch(requestDecks())
@@ -82,34 +88,39 @@ function receiveAddCardToDeck(title, card) {
     }
 }
 
-// TODO: refactor
 export function addCardToDeck(title, card) {
     return (dispatch) => {
         dispatch(requestAddCardToDeck(title, card))
-        AsyncStorage.getItem(CONSTANTS.ASYNC_STORAGE_KEY)
-            .then((decks) => {
-                const allDecks = JSON.parse(decks)
-                const deckQuestions = { title, questions: allDecks[title].questions.concat(card) }
+        AsyncStorage
+            .getItem(CONSTANTS.ASYNC_STORAGE_KEY)
+            .then((result) => {
+                const decks = JSON.parse(result)
+                const deck = decks[title]
+                // get the existing cards of this deck and add the new one
+                const deckCards = {
+                    title,
+                    questions: deck.questions.concat(card)
+                }
+                // store the result
                 return AsyncStorage.mergeItem(
                     CONSTANTS.ASYNC_STORAGE_KEY,
                     JSON.stringify(
                         {
-                            [title]: deckQuestions
+                            [title]: deckCards
                         }
                     ))
-                    .then
-                    (
-                        response => dispatch(receiveAddCardToDeck(title, card)),
+                    .then(
+                        result => dispatch(receiveAddCardToDeck(title, card)),
                         error => {
                             console.log(error)
                             return null
                         }
                     )
                     .catch(
-                    error => {
-                        console.log(error)
-                        return null
-                    }
+                        error => {
+                            console.log(error)
+                            return null
+                        }
                     )
             })
             .catch((error) => {
