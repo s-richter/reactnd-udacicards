@@ -1,4 +1,4 @@
-import * as CONSTANTS from './constants'
+import * as ACTIONS from './actiontypes'
 
 export const initialState = {
     decks: {},
@@ -11,13 +11,13 @@ export const initialState = {
 
 export default reducer = (state = initialState, action) => {
     switch (action.type) {
-        case CONSTANTS.GET_DECKS_REQUEST:
+        case ACTIONS.GET_DECKS_REQUEST:
             return {
                 ...state,
                 isFetching: true,
                 errorLoadDecks: false
             }
-        case CONSTANTS.GET_DECKS_RESPONSE:
+        case ACTIONS.GET_DECKS_RESPONSE:
             return {
                 ...state,
                 decks: action.decks,
@@ -25,19 +25,19 @@ export default reducer = (state = initialState, action) => {
                 errorLoadDecks: false,
                 triedLoadingDecks: true
             }
-        case CONSTANTS.GET_DECKS_ERROR:
+        case ACTIONS.GET_DECKS_ERROR:
             return {
                 ...state,
                 isFetching: false,
                 errorLoadDecks: true,
                 triedLoadingDecks: true
             }
-        case CONSTANTS.SAVE_DECK_TITLE_REQUEST:
+        case ACTIONS.SAVE_DECK_TITLE_REQUEST:
             return {
                 ...state,
                 isFetching: true
             }
-        case CONSTANTS.SAVE_DECK_TITLE_RESPONSE: {
+        case ACTIONS.SAVE_DECK_TITLE_RESPONSE: {
             return {
                 ...state,
                 isFetching: false,
@@ -51,7 +51,7 @@ export default reducer = (state = initialState, action) => {
                 }
             }
         }
-        case CONSTANTS.SAVE_DECK_TITLE_ERROR:
+        case ACTIONS.SAVE_DECK_TITLE_ERROR:
             return {
                 ...state,
                 isFetching: false,
@@ -60,13 +60,13 @@ export default reducer = (state = initialState, action) => {
                     ...state.decks
                 }
             }
-        case CONSTANTS.ADD_CARD_TO_DECK_REQUEST: {
+        case ACTIONS.ADD_CARD_TO_DECK_REQUEST: {
             return {
                 ...state,
                 isFetching: true
             }
         }
-        case CONSTANTS.ADD_CARD_TO_DECK_RESPONSE: {
+        case ACTIONS.ADD_CARD_TO_DECK_RESPONSE: {
             const result = {
                 ...state,
                 decks: {
@@ -83,7 +83,7 @@ export default reducer = (state = initialState, action) => {
             }
             return result
         }
-        case CONSTANTS.ADD_CARD_TO_DECK_ERROR: {
+        case ACTIONS.ADD_CARD_TO_DECK_ERROR: {
             return {
                 ...state,
                 isFetching: false,
