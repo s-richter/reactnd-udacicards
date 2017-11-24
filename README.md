@@ -32,6 +32,8 @@ To install the app:
 4. run `yarn start` to start the app and use the Expo app on your phone to use this app
 5. alternatively, run `yarn ios` or `yarn android` to use the app in an emulator. This app was tested on the Microsoft Visual Studio Emulator for Android
 
+For details about using Expo, please see the [Expo Documentation](https://docs.expo.io/versions/latest/index.html).
+
 
 ## Built With
 
