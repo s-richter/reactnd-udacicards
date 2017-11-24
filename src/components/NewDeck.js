@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, View, Text, TextInput, Alert } from 'react-native'
+import { StyleSheet, KeyboardAvoidingView, Text, TextInput, Alert } from 'react-native'
 import { navigation } from 'react-navigation'
 import TextButton from './TextButton'
 import { saveDeckTitle } from '../redux/actions'
@@ -62,7 +62,7 @@ class NewDeck extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <KeyboardAvoidingView style={styles.container}>
                 <Text style={styles.deckTitle}>
                     What is the title of your new deck?
                 </Text>
@@ -77,7 +77,7 @@ class NewDeck extends Component {
                 >
                     Submit
                 </TextButton>
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 }

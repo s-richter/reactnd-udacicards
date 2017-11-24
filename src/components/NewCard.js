@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, View, Text, TextInput, Alert } from 'react-native'
+import { StyleSheet, KeyboardAvoidingView, View, Text, TextInput, Alert } from 'react-native'
 import TextButton from './TextButton'
 import { addCardToDeck } from '../redux/actions'
 import { gray, blue, white, black } from '../utils/colors'
@@ -101,7 +101,7 @@ class NewCard extends Component {
     render() {
         const { question, answer } = this.state
         return (
-            <View style={styles.container}>
+            <KeyboardAvoidingView style={styles.container}>
                 <View style={styles.inputsContainer}>
                     <Text style={styles.label}>
                         Question (Front):
@@ -134,7 +134,7 @@ class NewCard extends Component {
                         Cancel
               </TextButton>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 }
