@@ -5,7 +5,8 @@ export const initialState = {
     isFetching: false,
     errorLoadDecks: false,
     errorAddDeck: false,
-    errorAddCard: false
+    errorAddCard: false,
+    triedLoadingDecks: false
 }
 
 export default reducer = (state = initialState, action) => {
@@ -13,20 +14,23 @@ export default reducer = (state = initialState, action) => {
         case CONSTANTS.GET_DECKS_REQUEST:
             return {
                 ...state,
-                isFetching: true
+                isFetching: true,
+                errorLoadDecks: false
             }
         case CONSTANTS.GET_DECKS_RESPONSE:
             return {
                 ...state,
                 decks: action.decks,
                 isFetching: false,
-                errorLoadDecks: false
+                errorLoadDecks: false,
+                triedLoadingDecks: true
             }
         case CONSTANTS.GET_DECKS_ERROR:
             return {
                 ...state,
                 isFetching: false,
                 errorLoadDecks: true,
+                triedLoadingDecks: true
             }
         case CONSTANTS.SAVE_DECK_TITLE_REQUEST:
             return {

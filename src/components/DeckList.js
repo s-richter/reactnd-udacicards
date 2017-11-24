@@ -39,8 +39,6 @@ const styles = StyleSheet.create({
 class DeckList extends Component {
     constructor() {
         super()
-        DeckList.dataWasFetched = false // needed to show empty deck list if no decks have yet
-                                        //  been created
     }
 
     componentDidMount() {
@@ -74,50 +72,36 @@ class DeckList extends Component {
     renderSeparator = () => (<View style={styles.separator} />)
 
     render() {
-        const { decks, navigation, isFetching, errorLoadDecks, errorAddDeck } = this.props
+        const { decks, navigation, isFetching, errorLoadDecks, triedLoadingDecks } = this.props
         const decksArray = Object.keys(decks).map(key => decks[key])
         return (
-            <View style={styles.container}>
-                {
-                    errorLoadDecks
-                        ? <Text style={styles.error}>
-                            There was an error fetching the decks.
-                        </Text>
-                        : decksArray.length > 0
-                            ? <FlatList
-                                data={decksArray}
-                                renderItem={this.renderDeckItem}
-                                keyExtractor={this.keyExtractor}
-                                ItemSeparatorComponent={this.renderSeparator} />
-                            : isFetching
-                                ? <ActivityIndicator animating={true} />
+            isFetching || !triedLoadingDecks
+                ? <ActivityIndicator />
+                : <View style={styles.container}>
+                    {
+                        errorLoadDecks === true
+                            ? <Text style={styles.error}>
+                                There was an error fetching the decks.
+                            </Text>
+                            : decksArray.length > 0
+                                ? <FlatList
+                                    data={decksArray}
+                                    renderItem={this.renderDeckItem}
+                                    keyExtractor={this.keyExtractor}
+                                    ItemSeparatorComponent={this.renderSeparator} />
                                 : <EmptyDeckList navigation={navigation} />
-                }
-            </View>
+                    }
+                </View>
         )
     }
 }
 
-function mapStateToProps({ decks, errorLoadDecks, errorAddDeck }) {
-    if (errorLoadDecks === true) {
-        return {
-            isFetching: false,
-            decks,
-            errorLoadDecks
-        }
-    }
-
-    if (!DeckList.dataWasFetched) {
-        DeckList.dataWasFetched = true  // decks are then fetched in componentDidMount()
-        return {
-            isFetching: true,
-            decks
-        }
-    } else {
-        return {
-            isFetching: false,
-            decks
-        }
+function mapStateToProps({ decks, errorLoadDecks, isFetching, triedLoadingDecks }) {
+    return {
+        isFetching,
+        decks,
+        errorLoadDecks,
+        triedLoadingDecks
     }
 }
 
