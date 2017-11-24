@@ -79,11 +79,6 @@ class DeckList extends Component {
         return (
             <View style={styles.container}>
                 {
-                    errorAddDeck && <Text style={styles.error}>
-                        There was an error adding the deck.
-                    </Text>
-                }
-                {
                     errorLoadDecks
                         ? <Text style={styles.error}>
                             There was an error fetching the decks.
@@ -116,14 +111,12 @@ function mapStateToProps({ decks, errorLoadDecks, errorAddDeck }) {
         DeckList.dataWasFetched = true  // decks are then fetched in componentDidMount()
         return {
             isFetching: true,
-            decks,
-            errorAddDeck
+            decks
         }
     } else {
         return {
             isFetching: false,
-            decks,
-            errorAddDeck
+            decks
         }
     }
 }

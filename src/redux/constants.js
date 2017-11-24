@@ -1,4 +1,4 @@
-export const ASYNC_STORAGE_KEY = 'UdaciCards:theKey'
+export const ASYNC_STORAGE_KEY = 'UdaciCards:theKey9'
 
 export const GET_DECKS_REQUEST = 'GET_DECKS_REQUEST'
 export const GET_DECKS_RESPONSE = 'GET_DECKS_RESPONSE'

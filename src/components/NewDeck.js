@@ -57,7 +57,7 @@ class NewDeck extends Component {
         // save, reset and return
         this.props.saveDeckTitle(title)
         this.setState({ title: '' })
-        this.props.navigation.navigate('DeckList')
+        this.props.navigation.navigate('IndividualDeck', { deckTitle: title })
     }
 
     render() {
