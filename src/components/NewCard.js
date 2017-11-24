@@ -147,10 +147,4 @@ function mapStateToProps({ decks }, { navigation }) {
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        addCardToDeck: (deckTitle, card) => { dispatch(addCardToDeck(deckTitle, card)) }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(NewCard)
+export default connect(mapStateToProps, { addCardToDeck })(NewCard)

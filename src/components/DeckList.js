@@ -105,10 +105,4 @@ function mapStateToProps({ decks, errorLoadDecks, isFetching, triedLoadingDecks 
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        getDecks: () => { dispatch(getDecks()) }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(DeckList)
+export default connect(mapStateToProps, { getDecks })(DeckList)

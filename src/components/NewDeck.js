@@ -88,10 +88,4 @@ function mapStateToProps(state, ownProps) {
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        saveDeckTitle: title => { dispatch(saveDeckTitle(title)) }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(NewDeck)
+export default connect(mapStateToProps, { saveDeckTitle })(NewDeck)
